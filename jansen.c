@@ -31,26 +31,25 @@ int main (int argc, char *argv[])
 
     printVector(bResult, m+1);
     printVector(wResult, m+1);
+    printf("oieee\n");
     printf("%d\n", menor(bResult[m], wResult[m]));
+    freeGraph(G);
+    free(bResult);
+    free(wResult);
     return 0;
 }
 
 
 int recursao(Graph *G, int root, int parent, int m, int *bResult, int *wResult)
 {
-    /* retorna */
-    int k = 0; /* count for childrens */
+    /* retorna -- */
+    int k = 0; /* contador para filhos */
     int i;
-    int *b, *w, *bPrime, *wPrime, *bPrimePrime, *wPrimePrime; 
+    int *bPrime, *wPrime, *bPrimePrime, *wPrimePrime; 
     Vertex *v;
     if(DEBUG) printf("DESCEU %d\n", root);
     v = G->adj[root]->next;
-    b = malloc(m*sizeof(int));
-    w = malloc(m*sizeof(int));
-    bPrime = malloc(m*sizeof(int));
-    wPrime = malloc(m*sizeof(int));
-    bPrimePrime = malloc(m*sizeof(int));
-    wPrimePrime = malloc(m*sizeof(int));
+ 
 
     /* quando é folha, retorna valor das folhas */
     if(v == NULL || (v->vertex ==parent && v->next == NULL)) /* LEAFS */
@@ -60,21 +59,27 @@ int recursao(Graph *G, int root, int parent, int m, int *bResult, int *wResult)
         wLeaf(m, wResult);
         return 0;
     }
-
     
+    
+    /* percorre todos os filhos */
     for (; v!=NULL; v = v->next)
     {
         if(parent != v->vertex)
         {
-            recursao(G, v->vertex, root, m, b, w);
+            /* reutilizando bwResult */
+            recursao(G, v->vertex, root, m, bResult, wResult);
+            bPrime = malloc(m*sizeof(int));
+            wPrime = malloc(m*sizeof(int));
+            
+
             if(DEBUG){
                 printf("b[%d]:  ", v->vertex);
-                printVector(b, m);
+                printVector(bResult, m);
                 printf("w[%d]:  ", v->vertex);
-                printVector(w, m);
+                printVector(wResult, m);
             }
-            calculaBprime(m, b, w, bPrime);
-            calculaWprime(m, b, w, wPrime);
+            calculaBprime(m, bResult, wResult, bPrime);
+            calculaWprime(m, bResult, wResult, wPrime);
 
             if(DEBUG){
                 printf("b'[%d]:  ", v->vertex);
@@ -84,6 +89,11 @@ int recursao(Graph *G, int root, int parent, int m, int *bResult, int *wResult)
             }
 
             /* primeiro filho */
+            if(k == 0) 
+            {
+                bPrimePrime = malloc(m*sizeof(int));
+                wPrimePrime = malloc(m*sizeof(int));   
+            }
             for (i = 0; i < m && k == 0; i++)
             {
                 bPrimePrime[i] = bPrime[i];
@@ -96,6 +106,10 @@ int recursao(Graph *G, int root, int parent, int m, int *bResult, int *wResult)
                 calculaBprimePrime(m, bPrimePrime, bPrime);
                 calculaWprimePrime(m, wPrimePrime, wPrime);
             }
+
+            free(bPrime);
+            free(wPrime);
+
             k++;
             if(DEBUG) printf("---------\n");
 
@@ -106,6 +120,8 @@ int recursao(Graph *G, int root, int parent, int m, int *bResult, int *wResult)
         bResult[i] = bPrimePrime[i];
         wResult[i] = wPrimePrime[i];
     }
+    free(bPrimePrime);
+    free(wPrimePrime);
     return 0;
 }
 

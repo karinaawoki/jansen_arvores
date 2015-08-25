@@ -19,6 +19,7 @@ void printVector(int *vect, int m);
 int main (int argc, char *argv[])
 {
     int m, *bResult, *wResult;
+    int root = 0;
     Graph *G;
 
     
@@ -27,11 +28,11 @@ int main (int argc, char *argv[])
     bResult = malloc((m+1)*sizeof(int));
     wResult = malloc((m+1)*sizeof(int));
 
-    recursao(G, 0, 0, m+1, bResult, wResult);
+
+    recursao(G, root, 0, m+1, bResult, wResult);
 
     printVector(bResult, m+1);
     printVector(wResult, m+1);
-    printf("oieee\n");
     printf("%d\n", menor(bResult[m], wResult[m]));
     freeGraph(G);
     free(bResult);

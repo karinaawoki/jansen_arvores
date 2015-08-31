@@ -31,8 +31,8 @@ int main (int argc, char *argv[])
 
     recursao(G, root, 0, m+1, bResult, wResult);
 
-    printVector(bResult, m+1);
-    printVector(wResult, m+1);
+    if(DEBUG)printVector(bResult, m+1);
+    if(DEBUG)printVector(wResult, m+1);
     printf("%d\n", menor(bResult[m], wResult[m]));
     freeGraph(G);
     free(bResult);

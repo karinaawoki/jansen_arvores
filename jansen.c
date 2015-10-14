@@ -1,4 +1,5 @@
 #include "input.h"
+#include <time.h>
 
 #define DEBUG 0
 
@@ -14,7 +15,9 @@ void wLeaf(int m, int *wResult);
 void printVector(int *vect, int m);
 
 
- 
+clock_t tempoInicial, tempoFinal;
+double tempoGasto;
+
 /* M = M+1 */
 int main (int argc, char *argv[])
 {
@@ -25,11 +28,15 @@ int main (int argc, char *argv[])
     
     m = atoi(argv[2]);
     G = read(argv[1]);
+    tempoInicial = clock();
+
     bResult = malloc((m+1)*sizeof(int));
     wResult = malloc((m+1)*sizeof(int));
 
 
     recursao(G, root, 0, m+1, bResult, wResult);
+
+    tempoFinal = clock();
 
     if(DEBUG)printVector(bResult, m+1);
     if(DEBUG)printVector(wResult, m+1);
@@ -37,6 +44,10 @@ int main (int argc, char *argv[])
     freeGraph(G);
     free(bResult);
     free(wResult);
+
+    tempoGasto = (tempoFinal-tempoInicial)*1.0/CLOCKS_PER_SEC;
+    printf("TEMPO: %f\n seg", tempoGasto);
+    
     return 0;
 }
 

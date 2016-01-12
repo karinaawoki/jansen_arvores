@@ -24,12 +24,12 @@ int main (int argc, char *argv[])
     int m, *bResult, *wResult;
     int root = 0;
     Graph *G;
-
     
     m = atoi(argv[2]);
     G = read(argv[1]);
     tempoInicial = clock();
 
+    
     bResult = malloc((m+1)*sizeof(int));
     wResult = malloc((m+1)*sizeof(int));
 

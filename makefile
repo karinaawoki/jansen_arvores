@@ -14,8 +14,8 @@ clean:
 
 
 #exec
-jansen: jansen.o structure.o input.o
-	gcc jansen.o structure.o input.o -o jansen
+jansen: jansen.o structure.o input.o queue.o
+	gcc jansen.o structure.o input.o queue.o -o jansen
 
 
 # ROOT
@@ -30,5 +30,5 @@ input.o: input.c input.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c input.c -g
 structure.o: structure.c structure.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c structure.c -g
-
-
+queue.o: list/queue.c list/queue.o
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c list/queue.c -g

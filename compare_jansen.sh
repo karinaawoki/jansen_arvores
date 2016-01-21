@@ -4,11 +4,9 @@
 max=10
 metade=$(($1/2))
 
+echo "num_vertices: $1   SEED: $seed   metade:$metade"
 for seed in `seq 1 $max`
 do
     #./_gen $1 $seed   > comp/t$1s$seed
-    echo "num_vertices: $1   SEED: $seed   metade:$metade"
-    ./jansen 12800/$seed $metade
-    echo -e
-    echo -e
+    ./jansen comp/t$1s$seed $metade
 done

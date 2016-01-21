@@ -46,7 +46,7 @@ int main (int argc, char *argv[])
     free(wResult);
 
     tempoGasto = (tempoFinal-tempoInicial)*1.0/CLOCKS_PER_SEC;
-    printf("TEMPO: %f\n seg", tempoGasto);
+    printf("TEMPO: %f seg \n", tempoGasto);
     
     return 0;
 }

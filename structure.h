@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "list/queue.h"
+#include "queue.h"
 
 
 typedef struct vertex Vertex;

@@ -30,5 +30,5 @@ input.o: input.c input.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c input.c -g
 structure.o: structure.c structure.h
 	gcc -Wall -ansi -pedantic -Wno-unused-result -c structure.c -g
-queue.o: list/queue.c list/queue.o
-	gcc -Wall -ansi -pedantic -Wno-unused-result -c list/queue.c -g
+queue.o: queue.c queue.h
+	gcc -Wall -ansi -pedantic -Wno-unused-result -c queue.c -g
